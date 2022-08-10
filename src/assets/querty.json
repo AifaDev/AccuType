@@ -1,0 +1,70 @@
+[
+  [
+    { "value": "`", "alt": "~", "grow": false },
+    { "value": "1", "alt": "!", "grow": false },
+    { "value": "2", "alt": "@", "grow": false },
+    { "value": "3", "alt": "#", "grow": false },
+    { "value": "4", "alt": "$", "grow": false },
+    { "value": "5", "alt": "%", "grow": false },
+    { "value": "6", "alt": "^", "grow": false },
+    { "value": "7", "alt": "&", "grow": false },
+    { "value": "8", "alt": "*", "grow": false },
+    { "value": "9", "alt": "(", "grow": false },
+    { "value": "0", "alt": ")", "grow": false },
+    { "value": "-", "alt": "_", "grow": false },
+    { "value": "=", "alt": "+", "grow": false },
+    { "value": "Backspace", "alt": "Backspace", "grow": true }
+  ],
+  [
+    { "value": "Tab", "alt": "Tab", "grow": true },
+    { "value": "q", "alt": "Q", "grow": false },
+    { "value": "w", "alt": "W", "grow": false },
+    { "value": "e", "alt": "E", "grow": false },
+    { "value": "r", "alt": "R", "grow": false },
+    { "value": "t", "alt": "T", "grow": false },
+    { "value": "y", "alt": "Y", "grow": false },
+    { "value": "u", "alt": "U", "grow": false },
+    { "value": "i", "alt": "I", "grow": false },
+    { "value": "o", "alt": "O", "grow": false },
+    { "value": "p", "alt": "P", "grow": false },
+    { "value": "[", "alt": "{", "grow": false },
+    { "value": "]", "alt": "}", "grow": false },
+    { "value": "\\", "alt": "|", "grow": true }
+  ],
+  [
+    { "value": "Caps", "alt": "Caps", "grow": true },
+    { "value": "a", "alt": "A", "grow": false },
+    { "value": "s", "alt": "S", "grow": false },
+    { "value": "d", "alt": "D", "grow": false },
+    { "value": "f", "alt": "F", "grow": false },
+    { "value": "g", "alt": "G", "grow": false },
+    { "value": "h", "alt": "H", "grow": false },
+    { "value": "j", "alt": "J", "grow": false },
+    { "value": "k", "alt": "K", "grow": false },
+    { "value": "l", "alt": "L", "grow": false },
+    { "value": ";", "alt": ":", "grow": false },
+    { "value": "'", "alt": "\"", "grow": false },
+    { "value": "Enter", "alt": "Enter", "grow": true }
+  ],
+  [
+    { "value": "Left-Shift", "alt": "Left-Shift", "grow": true },
+    { "value": "z", "alt": "Z", "grow": false },
+    { "value": "x", "alt": "X", "grow": false },
+    { "value": "c", "alt": "C", "grow": false },
+    { "value": "v", "alt": "V", "grow": false },
+    { "value": "b", "alt": "B", "grow": false },
+    { "value": "n", "alt": "N", "grow": false },
+    { "value": "m", "alt": "M", "grow": false },
+    { "value": ",", "alt": "<", "grow": false },
+    { "value": ".", "alt": ">", "grow": false },
+    { "value": "/", "alt": "?", "grow": false },
+    { "value": "Right-Shift", "alt": "Right-Shift", "grow": true }
+  ],
+  [
+    { "value": "Left-Ctrl", "alt": "Left-Ctrl", "grow": false },
+    { "value": "Left-Alt", "alt": "Left-Alt", "grow": false },
+    { "value": "Space", "alt": "Space", "grow": true },
+    { "value": "Right-Alt", "alt": "Right-Alt", "grow": false },
+    { "value": "Right-Ctrl", "alt": "Right-Ctrl", "grow": false }
+  ]
+]

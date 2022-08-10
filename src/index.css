@@ -4,6 +4,9 @@
 * {
   box-sizing: border-box;
 }
+body {
+  overscroll-behavior: none;
+}
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
