@@ -4,6 +4,7 @@ import Menu from "./components/Menu";
 import Paragraph from "./components/Paragraph";
 
 function App() {
+
   return (
     <div className="App h-screen w-screen select-none bg-background dark:bg-background-dark transition-colors duration-300">
       <div className="absolute md:top-[3%] md:left-[7%] sm:top-[4%] sm:left-[3.5%] xm:top-[1%] xm:left-[1.5%]">
