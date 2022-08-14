@@ -63,7 +63,7 @@
   [
     { "value": "Left-Ctrl", "alt": "Left-Ctrl", "grow": false },
     { "value": "Left-Alt", "alt": "Left-Alt", "grow": false },
-    { "value": "Space", "alt": "Space", "grow": true },
+    { "value": "Space-", "alt": "Space-", "grow": true },
     { "value": "Right-Alt", "alt": "Right-Alt", "grow": false },
     { "value": "Right-Ctrl", "alt": "Right-Ctrl", "grow": false }
   ]

@@ -9,27 +9,32 @@ export default function Brief({ ...props }) {
 
 const Goal = () => {
   return (
-    <div className="flex flex-col justify-center h-[55%]">
+    <div className="flex flex-col justify-center h-[55%] md:text-base text-sm">
       <div className="flex items-baseline justify-between gap-4 px-6">
-        <span className="text-base whitespace-nowrap text-[#999898]">Daily Goal</span>
-        <div className="bg-[#E9E9E9] h-3 w-full rounded-full">
-          <div className="bg-[#12C9D1] w-[50%] h-full rounded-full"></div>
+        <span className="whitespace-nowrap text-goal_text dark:text-goal_text-dark">
+          Daily Goal
+        </span>
+        <div className="bg-back_bar dark:bg-back_bar-dark h-3 w-full rounded-full">
+          <div className="bg-bar dark:bg-bar-dark w-[50%] h-full rounded-full"></div>
         </div>
-        <span className="text-base whitespace-nowrap text-[#999898]">735/1500</span>
+        <span className="whitespace-nowrap text-goal_text dark:text-goal_text-dark xm:block hidden">
+          735/1500
+        </span>
       </div>
     </div>
   );
 };
 
 const Record = () => (
-  <div className="relative flex flex-row border-b justify-between items-center font-normal text-xl h-[45%] pl-16 pr-28 text-[#898989]">
-    <span className="whitespace-nowrap">Speed: N/A</span>
+  <div className="xm:relative flex flex-row border-b border-b-brief_border dark:border-b-brief_border-dark xm:justify-between justify-center items-center font-normal md:text-xl xm:text-base text-sm h-[45%] md:pl-16 md:pr-28 xm:pl-8 xm:pr-14 text-brief_text dark:text-brief_text-dark">
+    <span className="whitespace-nowrap xm:mr-0 mr-[15%]">Speed: N/A</span>
     <span className="whitespace-nowrap">Accuracy: N/A </span>
-    <span className="whitespace-nowrap">Improvement: N/A</span>
-    <span className="whitespace-nowrap flex flex-row items-center gap-1">
-     <span>Best: N/A </span> <CrownIcon className="w-7 stroke-[#FFD336]" />
+    <span className="whitespace-nowrap sm:block hidden">Improvement: N/A</span>
+    <span className="whitespace-nowrap xm:flex flex-row items-center gap-px hidden">
+      <span>Best: N/A </span>
+      <CrownIcon className="w-7 stroke-crown dark:stroke-crown-dark transform md:scale-100 scale-75" />
     </span>
-    <ConfigButton className="absolute right-4 scale-[1.75] fill-[#9B9B9B]" />
+    <ConfigButton className="absolute xm:right-4 xm:top-auto top-4 right-4 md:scale-[1.55] scale-[1.45] fill-config_button dark:fill-config_button-dark" />
   </div>
 );
 
@@ -43,12 +48,12 @@ const ConfigButton = ({ ...props }) => {
 
 const CrownIcon = ({ ...props }) => {
   return (
-    <svg { ...props }
+    <svg
+      {...props}
       fill="none"
-      stroke="#2c3e50"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
       viewBox="0 0 24 24"
     >
       <path stroke="none" d="M0 0h24v24H0z" />

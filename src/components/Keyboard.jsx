@@ -4,7 +4,7 @@ import querty from "../assets/querty.json";
 export default function Keyboard({ ...props }) {
   return (
     <div {...props}>
-      <div className="w-[898.62px] h-[302.13px] bg-[#A5A5A5] flex flex-col gap-1 p-1">
+      <div className="w-[97654857639%] h-full bg-gaps dark:bg-gaps-dark flex flex-col gap-1 p-1 md:text-base text-sm">
         {querty.map((row, index) => {
           return (
             <div key={index} className="w-full h-full flex flex-row gap-1">
@@ -30,8 +30,8 @@ const Key = ({ value, alt, grow }) => {
   const [clicked, setClicked] = useState("d");
   return (
     <div
-      className={`h-full w-14 text-center flex flex-col justify-center gap-1 font-medium text-[#A5A5A5] ${
-        value == clicked ? "bg-[#12C9D1] text-white" : "bg-[#FAFAFA]"
+      className={`h-full w-[6.231777614%] text-center flex flex-col justify-center gap-1 font-medium text-key_text dark:text-key_text-dark ${
+        value == clicked ? "bg-bar text-key_text-dark dark:bg-bar-dark " : "bg-key dark:bg-key-dark"
       } ${grow && "flex-grow"}`} 
     >
       <span> {alt.toLowerCase() === value.toLowerCase() ? "" : alt}</span>
