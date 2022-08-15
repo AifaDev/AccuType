@@ -74,6 +74,17 @@ module.exports = {
         DEFAULT: "#9B9B9B",
         dark: "#00ADB5",
       },
+      correct: {
+        light: "#E6E6E6",
+        DEFAULT: "#E6E6E6",
+        dark: "#3A4554",
+      },
+      incorrect: {
+        light: "#FF5757",
+        DEFAULT: "#FF5757",
+        dark: "#FF6060",
+      }
+
 
       
     },
