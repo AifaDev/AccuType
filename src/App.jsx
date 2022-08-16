@@ -1,11 +1,14 @@
+import { useEffect, useLayoutEffect, useRef } from "react";
 import Brief from "./components/Brief";
+import Caret from "./components/Caret";
 import Keyboard from "./components/Keyboard";
 import Menu from "./components/Menu";
 import Paragraph from "./components/Paragraph";
 
 function App() {
   return (
-    <div className="App h-screen w-screen select-none bg-background dark:bg-background-dark transition-colors duration-300">
+    <div className="App h-screen w-screen inset-0 select-none bg-background dark:bg-background-dark transition-colors duration-300">
+      <Caret />
       <div className="absolute md:top-[3%] md:left-[7%] sm:top-[4%] sm:left-[3.5%] xm:top-[1%] xm:left-[1.5%]">
         <Menu className="transform md:scale-[-1.2] xm:scale-[-1] scale-[-0.8] fill-menu_button dark:fill-menu_button-dark" />
       </div>

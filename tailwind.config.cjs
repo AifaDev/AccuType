@@ -88,6 +88,14 @@ module.exports = {
 
       
     },
+    keyframes: {
+      breathe: {
+        '0%': { opacity: 1 },
+        '50%': { opacity: 0 },
+        '100%': { opacity: 1 },
+        
+      }
+    },
     screens: {
       xm: '512px',
       sm: '869px',

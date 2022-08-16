@@ -1,33 +1,54 @@
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useKeys } from "../State";
 
 export default function Paragraph({ ...props }) {
-  const { addKey, removeKey, setFocus, focused } = useKeys();
-  const words = [
-    [
-      { key: "H", state: "correct" },
-      { key: "e", state: "incorrect" },
-      { key: "l", state: "paragraph" },
-      { key: "l", state: "paragraph" },
-      { key: "o", state: "paragraph" },
-    ],
-    [
-      { key: "\u00A0", state: "paragraph" },
-      { key: "W", state: "paragraph" },
-      { key: "o", state: "paragraph" },
-      { key: "r", state: "paragraph" },
-      { key: "l", state: "paragraph" },
-      { key: "d", state: "paragraph" },
-      { key: "!", state: "paragraph" },
-    ],
-  ];
+  const { addKey, removeKey, setFocus, focused, setLetter, letters } =
+    useKeys();
+  const [index, setIndex] = useState([0, 0]);
+  const myParagraph = useRef();
+  useLayoutEffect(() => {
+    const element =
+      myParagraph.current.firstChild.firstChild.children[index[0]].children[
+        index[1]
+      ];
+    setLetter(element);
+  }, [index]);
+
   return (
     <div
+      ref={myParagraph}
       onKeyDown={(e) => {
         e.preventDefault();
         if (e.key === "Escape") {
           e.target.blur();
         }
         addKey(e.code);
+        const letter = letters[index[0]][index[1]];
+        if (
+          e.code.includes("Key") ||
+          e.code.includes("Digit") ||
+          e.code === "Space"
+        ) {
+          if (
+            letter.key === e.key ||
+            (letter.code === "Space" && e.code === "Space")
+          ) {
+            letter.state = "correct";
+
+            if (letters[index[0]][index[1] + 1]) {
+              setIndex((prev) => [prev[0], prev[1] + 1]);
+            } else if (letters[index[0] + 1][0]?.code !== "Finish") {
+              setIndex((prev) => [prev[0] + 1, 0]);
+            } else {
+              setIndex((prev) => [prev[0] + 1, 0]);
+              console.log("Finish");
+              setIndex((prev) => [0, 0]);
+
+            }
+          } else {
+            letter.state = "incorrect";
+          }
+        }
       }}
       onKeyUp={(e) => {
         if (e.code === "CapsLock") {
@@ -40,27 +61,28 @@ export default function Paragraph({ ...props }) {
       }}
       tabIndex="0"
       {...props}
-      onFocus={() => {
+      onFocus={(e) => {
         setFocus(true);
+        e.prompt
       }}
       onBlur={() => {
         setFocus(false);
       }}
     >
       <div
-        className={`relative md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
+        className={`relative tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
           !focused && "blur-[2px]"
         }`}
       >
         <div>
-          {words.map((e, i) => {
+          {letters.map((e, i) => {
             return (
               <div className="inline-block" key={i}>
                 {e.map((e, j) => {
                   //Tailwind made me do this...
                   const color = () => {
                     if (e.state === "correct") {
-                      return "text-correct dark:text-correct-dark inline-block";
+                      return "text-correct dark:text-correct-dark inline-block ";
                     } else if (e.state === "incorrect") {
                       return "text-incorrect dark:text-incorrect-dark inline-block";
                     } else {
