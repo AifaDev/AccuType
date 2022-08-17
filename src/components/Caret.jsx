@@ -1,11 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { useKeys } from "../State";
 
 export default function Caret() {
-  const { position, focused, size, updateSize, letter } = useKeys();
+  const { position, focused, size, letter } = useKeys();
   const myCaret = useRef();
-  addEventListener("resize", updateSize);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (letter) {
       const caretHeight = myCaret.current.getBoundingClientRect().height;
       const x = letter?.getBoundingClientRect().x;

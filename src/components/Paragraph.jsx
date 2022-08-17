@@ -1,18 +1,70 @@
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useKeys } from "../State";
 
 export default function Paragraph({ ...props }) {
-  const { addKey, removeKey, setFocus, focused, setLetter, letters } =
-    useKeys();
+  window.onblur = () => {
+    document.title = "Paused";
+    myParagraph.current.blur();
+  };
+  window.onfocus = () => myParagraph.current.focus();
+
+  window.onresize = () => {
+    myParagraph.current.blur();
+    updateSize();
+  };
+
+  const {
+    addKey,
+    removeKey,
+    setFocus,
+    focused,
+    setLetter,
+    letters,
+    startSession,
+    startCounter,
+    endSession,
+    countLetter,
+    countTypo,
+    updateSize,
+  } = useKeys();
+  const firstUpdate = useRef(true);
   const [index, setIndex] = useState([0, 0]);
+  const modifiers = {
+    Tab: true,
+    CapsLock: true,
+    ShiftLeft: true,
+    ShiftRight: true,
+    ControlRight: true,
+    ControlLeft: true,
+    AltRight: true,
+    AltLeft: true,
+    Enter: true,
+    Backspace: true,
+    Escape: true,
+    MetaLeft: true,
+    MetaRight: true,
+  };
   const myParagraph = useRef();
   useLayoutEffect(() => {
+    if (index[0] === 0 && index[1] === 0) {
+      startSession();
+    }
+    if (index[0] === 0 && index[1] === 1) {
+      startCounter();
+    }
     const element =
       myParagraph.current.firstChild.firstChild.children[index[0]].children[
         index[1]
       ];
     setLetter(element);
   }, [index]);
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      myParagraph.current.focus();
+    } 
+  }, []);
 
   return (
     <div
@@ -21,32 +73,30 @@ export default function Paragraph({ ...props }) {
         e.preventDefault();
         if (e.key === "Escape") {
           e.target.blur();
+        } else if (e.key === "Tab") {
+          setIndex([0, 0]);
         }
         addKey(e.code);
         const letter = letters[index[0]][index[1]];
-        if (
-          e.code.includes("Key") ||
-          e.code.includes("Digit") ||
-          e.code === "Space"
-        ) {
+        if (!modifiers[e.code]) {
           if (
             letter.key === e.key ||
             (letter.code === "Space" && e.code === "Space")
           ) {
             letter.state = "correct";
-
+            countLetter();
             if (letters[index[0]][index[1] + 1]) {
               setIndex((prev) => [prev[0], prev[1] + 1]);
             } else if (letters[index[0] + 1][0]?.code !== "Finish") {
               setIndex((prev) => [prev[0] + 1, 0]);
             } else {
               setIndex((prev) => [prev[0] + 1, 0]);
-              console.log("Finish");
-              setIndex((prev) => [0, 0]);
-
+              endSession();
+              setIndex([0, 0]);
             }
           } else {
             letter.state = "incorrect";
+            countTypo();
           }
         }
       }}
@@ -61,16 +111,19 @@ export default function Paragraph({ ...props }) {
       }}
       tabIndex="0"
       {...props}
-      onFocus={(e) => {
+      onFocus={() => {
         setFocus(true);
-        e.prompt
+        document.title = "Typing...";
       }}
       onBlur={() => {
+        document.title = "Best Chat";
         setFocus(false);
+        setIndex([0, 0]);
+        startSession();
       }}
     >
       <div
-        className={`relative tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
+        className={`relative transition-[filter] tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
           !focused && "blur-[2px]"
         }`}
       >

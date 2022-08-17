@@ -97,9 +97,9 @@ module.exports = {
       }
     },
     screens: {
-      xm: '512px',
-      sm: '869px',
-      'md': '1248px',
+      xm: '600px',
+      sm: '985px',
+      md: '1390px',
     }
   },
   plugins: [],

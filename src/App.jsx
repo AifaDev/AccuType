@@ -1,4 +1,3 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
 import Brief from "./components/Brief";
 import Caret from "./components/Caret";
 import Keyboard from "./components/Keyboard";

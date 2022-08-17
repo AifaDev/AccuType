@@ -2,7 +2,7 @@ import create from "zustand";
 
 export const useKeys = create((set) => ({
   keys: {},
-  letters: [
+  generatedLetters: [
     [
       { key: "H", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
@@ -18,7 +18,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -33,7 +34,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -48,7 +50,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -63,7 +66,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -78,7 +82,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -93,7 +98,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -108,7 +114,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -123,7 +130,8 @@ export const useKeys = create((set) => ({
       { key: "l", code: "KeyL", state: "paragraph" },
       { key: "d", code: "KeyD", state: "paragraph" },
     ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],   [
+    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
+    [
       { key: "h", code: "KeyH", state: "paragraph" },
       { key: "e", code: "KeyE", state: "paragraph" },
       { key: "l", code: "KeyL", state: "paragraph" },
@@ -140,6 +148,18 @@ export const useKeys = create((set) => ({
     ],
     [{ key: "\u00A0", code: "Finish", state: "paragraph" }],
   ],
+  letters: [[{ key: "\u00A0", code: "Finish", state: "paragraph" }]],
+  firstLetter: 0,
+  lastLetter: 0,
+  lettersCount: 0,
+  typos: 0,
+  speed: "N/A",
+  accuracy: "N/A",
+  streak: "N/A",
+  best: "N/A",
+  progressPercentage: 0,
+  goal: 1500,
+  progress: 0,
   size: [window.innerWidth, window.innerHeight],
   focused: false,
   addKey: (key) =>
@@ -162,5 +182,70 @@ export const useKeys = create((set) => ({
     set((state) => {
       state.focused = false;
       state.size = [window.innerWidth, window.innerHeight];
+    }),
+  updateBrief: () =>
+    set((state) => {
+      const speed = localStorage.getItem("speed");
+      const accuracy = localStorage.getItem("accuracy");
+      const streak = localStorage.getItem("streak");
+      const best = localStorage.getItem("best");
+      const goal = localStorage.getItem("goal");
+      const progress = localStorage.getItem("progress");
+
+      if (speed) state.speed = speed + "wpm";
+      if (accuracy) state.accuracy = accuracy + "%";
+      if (streak) state.streak = streak;
+      if (best) state.best = best + "wpm";
+      if (goal) state.goal = 1500;
+      if (progress) state.progress = progress;
+      state.progressPercentage = state.progress / state.goal;
+    }),
+  startSession: () =>
+    set((state) => {
+      state.firstLetter = 0;
+      state.lastLetter = 0;
+      state.lettersCount = 0;
+      state.typos = 0;
+      state.letters = structuredClone(state.generatedLetters);
+    }),
+  startCounter: () =>
+    set((state) => {
+      state.firstLetter = Date.now();
+    }),
+  countLetter: () =>
+    set((state) => {
+      state.lettersCount = state.lettersCount + 1;
+    }),
+  countTypo: () =>
+    set((state) => {
+      state.typos = state.typos + 1;
+    }),
+  endSession: () =>
+    set((state) => {
+      state.lastLetter = Date.now();
+      const minutes = (state.lastLetter - state.firstLetter) / 60000;
+      const words = state.lettersCount / 5;
+      const speed = ~~(words / minutes);
+      state.speed = speed + "wpm";
+      localStorage.setItem("speed", speed);
+      const accuracy = ~~(
+        ((state.lettersCount - state.typos) * 100) /
+        state.lettersCount
+      );
+      state.accuracy = accuracy + "%";
+      localStorage.setItem("accuracy", accuracy);
+      const best = localStorage.getItem("best");
+      if (speed > best || !best) {
+        localStorage.setItem("best", speed);
+        state.best = speed + "wpm";
+      }
+      const progress = ~~localStorage.getItem("progress") + ~~words;
+      state.progress = progress;
+      const goal = localStorage.getItem("goal");
+      if (!goal) {
+        localStorage.setItem("goal", state.goal);
+      }
+      localStorage.setItem("progress", state.progress);
+      state.progressPercentage = state.progress / state.goal;
     }),
 }));
