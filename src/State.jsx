@@ -155,8 +155,8 @@ export const useKeys = create((set) => ({
   typos: 0,
   speed: "N/A",
   accuracy: "N/A",
-  streak: "N/A",
-  best: "N/A",
+  streak: 0,
+  best: 0,
   progressPercentage: 0,
   goal: 1500,
   progress: 0,
@@ -195,7 +195,7 @@ export const useKeys = create((set) => ({
       if (speed) state.speed = speed + "wpm";
       if (accuracy) state.accuracy = accuracy + "%";
       if (streak) state.streak = streak;
-      if (best) state.best = best + "wpm";
+      if (best) state.best = best;
       if (goal) state.goal = 1500;
       if (progress) state.progress = progress;
       state.progressPercentage = state.progress / state.goal;
@@ -234,11 +234,6 @@ export const useKeys = create((set) => ({
       );
       state.accuracy = accuracy + "%";
       localStorage.setItem("accuracy", accuracy);
-      const best = localStorage.getItem("best");
-      if (speed > best || !best) {
-        localStorage.setItem("best", speed);
-        state.best = speed + "wpm";
-      }
       const progress = ~~localStorage.getItem("progress") + ~~words;
       state.progress = progress;
       const goal = localStorage.getItem("goal");
@@ -247,5 +242,18 @@ export const useKeys = create((set) => ({
       }
       localStorage.setItem("progress", state.progress);
       state.progressPercentage = state.progress / state.goal;
+
+      if (accuracy === 100) {
+        state.streak += 1;
+        localStorage.setItem("streak", state.streak);
+      } else {
+        state.streak = 0;
+        localStorage.setItem("streak", state.streak);
+      }
+      const best = localStorage.getItem("best");
+      if (state.streak > best || !best) {
+        localStorage.setItem("best", state.streak);
+        state.best = state.streak;
+      }
     }),
 }));

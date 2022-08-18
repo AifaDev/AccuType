@@ -116,7 +116,7 @@ export default function Paragraph({ ...props }) {
         document.title = "Typing...";
       }}
       onBlur={() => {
-        document.title = "Best Chat";
+        document.title = "Best App";
         setFocus(false);
         setIndex([0, 0]);
         startSession();

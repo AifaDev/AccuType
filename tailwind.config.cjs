@@ -3,6 +3,9 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
+    fontFamily: {
+      roboto: ["Roboto", "sans-serif"],
+    },
     colors: {
       background: {
         light: "#FFFFFF",
@@ -83,24 +86,21 @@ module.exports = {
         light: "#FF5757",
         DEFAULT: "#FF5757",
         dark: "#FF6060",
-      }
-
-
-      
+      },
     },
     keyframes: {
       breathe: {
-        '0%': { opacity: 1 },
-        '50%': { opacity: 0 },
-        '100%': { opacity: 1 },
-        
-      }
+        "0%": { opacity: 1 },
+        "50%": { opacity: 0 },
+        "100%": { opacity: 1 },
+      },
     },
     screens: {
-      xm: '600px',
-      sm: '985px',
-      md: '1390px',
-    }
+      xm: "600px",
+      sm: "985px",
+      md: "1390px",
+      short: { raw: "(max-height: 640px ) and (min-width: 985px)" },
+    },
   },
   plugins: [],
 };
