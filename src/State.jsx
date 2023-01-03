@@ -1,154 +1,49 @@
 import create from "zustand";
+import axios from "axios";
 
-export const useKeys = create((set) => ({
+const Space = [{ key: "\u00A0", state: "paragraph" }];
+const Finish = [{ key: "\u00A0", code: "Finish", state: "paragraph" }];
+
+const generatePragraph = async () => {
+  const res = await axios.get(
+    "http://api.quotable.io/random?minLength=200&maxLength=250"
+  );
+  return res.data.content;
+};
+
+const generateKeys = (paragraph) => {
+  let p = paragraph.replaceAll(" — "," ")
+  const keys = [];
+  let currentKey = [];
+  for (const c of p) {
+    if (c === " ") {
+      keys.push(currentKey);
+      currentKey = [];
+      keys.push(Space);
+    } else {
+      currentKey.push({ key: c, state: "paragraph" });
+    }
+  }
+  keys.push(currentKey);
+  keys.push(Finish);
+  return keys;
+};
+
+
+export const useKeys = create((set) => {
+  let letters = [];
+
+  (async () => {
+    const p = await generatePragraph();
+    letters = generateKeys(p);
+    set((state) => {
+      state.letters = letters;
+    });
+  })();
+  return ({
   keys: {},
-  generatedLetters: [
-    [
-      { key: "H", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "h", code: "KeyH", state: "paragraph" },
-      { key: "e", code: "KeyE", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Space", state: "paragraph" }],
-    [
-      { key: "w", code: "KeyW", state: "paragraph" },
-      { key: "o", code: "KeyO", state: "paragraph" },
-      { key: "r", code: "KeyR", state: "paragraph" },
-      { key: "l", code: "KeyL", state: "paragraph" },
-      { key: "d", code: "KeyD", state: "paragraph" },
-    ],
-    [{ key: "\u00A0", code: "Finish", state: "paragraph" }],
-  ],
-  letters: [[{ key: "\u00A0", code: "Finish", state: "paragraph" }]],
+  paragraph: letters,
+  letters: letters,
   firstLetter: 0,
   lastLetter: 0,
   lettersCount: 0,
@@ -162,6 +57,12 @@ export const useKeys = create((set) => ({
   progress: 0,
   size: [window.innerWidth, window.innerHeight],
   focused: false,
+
+  generateKeys: (paragraph) =>
+    set((state) => {
+      state.letters = generateKeys(paragraph);
+    }),
+
   addKey: (key) =>
     set((state) => {
       state.keys[key] = key;
@@ -170,6 +71,7 @@ export const useKeys = create((set) => ({
     set((state) => {
       delete state.keys[key];
     }),
+
   setFocus: (bool) =>
     set((state) => {
       state.focused = bool;
@@ -182,6 +84,10 @@ export const useKeys = create((set) => ({
     set((state) => {
       state.focused = false;
       state.size = [window.innerWidth, window.innerHeight];
+    }),
+  setLetters: (l) =>
+    set((state) => {
+      state.letters = l;
     }),
   updateBrief: () =>
     set((state) => {
@@ -200,13 +106,14 @@ export const useKeys = create((set) => ({
       if (progress) state.progress = progress;
       state.progressPercentage = state.progress / state.goal;
     }),
+
   startSession: () =>
     set((state) => {
       state.firstLetter = 0;
       state.lastLetter = 0;
       state.lettersCount = 0;
       state.typos = 0;
-      state.letters = structuredClone(state.generatedLetters);
+      state.letters = structuredClone(letters);
     }),
   startCounter: () =>
     set((state) => {
@@ -255,5 +162,12 @@ export const useKeys = create((set) => ({
         localStorage.setItem("best", state.streak);
         state.best = state.streak;
       }
+      (async () => {
+        const p = await generatePragraph();
+        letters = generateKeys(p);
+        set((state) => {
+          state.letters = letters;
+        });
+      })();
     }),
-}));
+})})

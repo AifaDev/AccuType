@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useKeys } from "../State";
 
 export default function Paragraph({ ...props }) {
@@ -45,19 +45,23 @@ export default function Paragraph({ ...props }) {
     MetaRight: true,
   };
   const myParagraph = useRef();
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     if (index[0] === 0 && index[1] === 0) {
       startSession();
     }
     if (index[0] === 0 && index[1] === 1) {
       startCounter();
     }
-    const element =
-      myParagraph.current.firstChild.firstChild.children[index[0]].children[
-        index[1]
-      ];
-    setLetter(element);
+    if (letters.length > 0) {
+      const element =
+        myParagraph.current.firstChild.firstChild.children[index[0]].children[        index[1]
+        ];
+      setLetter(element);
+    }
   }, [index]);
+ 
+
 
   useEffect(() => {
     if (firstUpdate.current) {
@@ -81,7 +85,7 @@ export default function Paragraph({ ...props }) {
         if (!modifiers[e.code]) {
           if (
             letter.key === e.key ||
-            (letter.code === "Space" && e.code === "Space")
+            (letter.key === "\u00A0" && e.code === "Space")
           ) {
             letter.state = "correct";
             countLetter();
@@ -92,6 +96,7 @@ export default function Paragraph({ ...props }) {
             } else {
               setIndex((prev) => [prev[0] + 1, 0]);
               endSession();
+              
               setIndex([0, 0]);
             }
           } else {
@@ -153,6 +158,7 @@ export default function Paragraph({ ...props }) {
             );
           })}
         </div>
+
 
         {/* <input
           type="text"
