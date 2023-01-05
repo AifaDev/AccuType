@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { useLayoutEffect, useRef } from "react";
 import { useKeys } from "../State";
 
 export default function Caret() {
+  const [mounted, setMounted] = useState(false);
   const { position, focused, size, letter } = useKeys();
   const myCaret = useRef();
   useLayoutEffect(() => {
@@ -15,13 +17,16 @@ export default function Caret() {
       myCaret.current.style.left = x + "px";
 
       myCaret.current.style.top = y + "px";
+      setMounted(true);
+    } else {
+      setMounted(false);
     }
   }, [position, size, letter]);
 
   return (
     <div
       className={`absolute z-10 transition-[left] duration-100 rounded-full w-[3px] animate-[breathe_1s_ease-in-out_infinite]  md:h-9 xm:h-[30px] h-6 bg-bar dark:bg-bar-dark ${
-        !focused && "invisible"
+        (!focused || !mounted) && "invisible"
       }`}
       ref={myCaret}
     />

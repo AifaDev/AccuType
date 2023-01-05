@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useKeys } from "../State";
 
@@ -26,9 +27,11 @@ export default function Paragraph({ ...props }) {
     countLetter,
     countTypo,
     updateSize,
+    index,
+    setIndex,
   } = useKeys();
+  
   const firstUpdate = useRef(true);
-  const [index, setIndex] = useState([0, 0]);
   const modifiers = {
     Tab: true,
     CapsLock: true,
@@ -55,20 +58,20 @@ export default function Paragraph({ ...props }) {
     }
     if (letters.length > 0) {
       const element =
-        myParagraph.current.firstChild.firstChild.children[index[0]].children[        index[1]
-        ];
+        myParagraph?.current?.firstChild?.firstChild?.children[index[0]]
+          .children[index[1]];
       setLetter(element);
     }
   }, [index]);
- 
-
 
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       myParagraph.current.focus();
-    } 
+    }
   }, []);
+
+
 
   return (
     <div
@@ -79,6 +82,7 @@ export default function Paragraph({ ...props }) {
           e.target.blur();
         } else if (e.key === "Tab") {
           setIndex([0, 0]);
+          startSession();
         }
         addKey(e.code);
         const letter = letters[index[0]][index[1]];
@@ -90,14 +94,12 @@ export default function Paragraph({ ...props }) {
             letter.state = "correct";
             countLetter();
             if (letters[index[0]][index[1] + 1]) {
-              setIndex((prev) => [prev[0], prev[1] + 1]);
+              setIndex([index[0], index[1] + 1]);
             } else if (letters[index[0] + 1][0]?.code !== "Finish") {
-              setIndex((prev) => [prev[0] + 1, 0]);
+              setIndex([index[0] + 1, 0]);
             } else {
-              setIndex((prev) => [prev[0] + 1, 0]);
+              setIndex([index[0] + 1, 0]);
               endSession();
-              
-              setIndex([0, 0]);
             }
           } else {
             letter.state = "incorrect";
@@ -128,7 +130,7 @@ export default function Paragraph({ ...props }) {
       }}
     >
       <div
-        className={`relative transition-[filter] tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
+        className={`relative min-h-[200px] transition-[filter] tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
           !focused && "blur-[2px]"
         }`}
       >
@@ -158,7 +160,6 @@ export default function Paragraph({ ...props }) {
             );
           })}
         </div>
-
 
         {/* <input
           type="text"
