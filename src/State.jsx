@@ -6,7 +6,7 @@ const Finish = [{ key: "\u00A0", code: "Finish", state: "paragraph" }];
 
 const generatePragraph = async () => {
   const res = await axios.get(
-    "http://api.quotable.io/random?minLength=200&maxLength=250"
+    "http://api.quotable.io/random?minLength=150&maxLength=200"
   );
   return res.data.content;
 };
@@ -31,20 +31,22 @@ const generateKeys = (paragraph) => {
 
 export const useKeys = create((set) => {
   let letters = [];
-
+  let preText = [];
   (async () => {
     const p = await generatePragraph();
     letters = generateKeys(p);
+
     set((state) => {
       state.letters = letters;
       state.focused = true;
       state.index = [0, 0];
     });
+    const pre = await generatePragraph();
+    preText = generateKeys(pre);
   })();
   return {
     keys: {},
-    paragraph: letters,
-    letters: letters,
+    letters: [],
     index: [0, 0],
     firstLetter: 0,
     lastLetter: 0,
@@ -165,13 +167,14 @@ export const useKeys = create((set) => {
           localStorage.setItem("best", state.streak);
           state.best = state.streak;
         }
+
+        letters = preText;
+        state.letters = structuredClone(preText);
+        state.index = [0, 0];
+
         (async () => {
           const p = await generatePragraph();
-          letters = generateKeys(p);
-          set((state) => {
-            state.letters = letters;
-            state.index = [0, 0]
-          });
+          preText = generateKeys(p);
         })();
       }),
   };
