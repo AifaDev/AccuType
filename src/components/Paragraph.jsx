@@ -74,7 +74,7 @@ export default function Paragraph({ ...props }) {
 
 
   return (
-    <div
+    <div 
       ref={myParagraph}
       onKeyDown={(e) => {
         e.preventDefault();
@@ -131,7 +131,7 @@ export default function Paragraph({ ...props }) {
     >
       <div
         className={`relative min-h-[200px] transition-[filter] tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
-          !focused && "blur-[2px]"
+          focused ?"cursor-none" :"blur-[2px]"
         }`}
       >
         <div>

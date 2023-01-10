@@ -3,9 +3,15 @@ import Caret from "./components/Caret";
 import Keyboard from "./components/Keyboard";
 import Menu from "./components/Menu";
 import Paragraph from "./components/Paragraph";
+import Config from "./components/Config";
+import { useKeys } from "./State";
 
 function App() {
+  const {openedConfig} = useKeys();
   return (
+    openedConfig ? (
+      <Config />
+    ): (
     <div className="font-roboto App h-screen w-screen inset-0 select-none bg-background dark:bg-background-dark transition-colors duration-300">
       <Caret />
       <div className="absolute md:top-[3%] md:left-[7%] sm:top-[4%] sm:left-[3.5%] xm:top-[1%] xm:left-[1.5%]">
@@ -16,7 +22,8 @@ function App() {
         <Paragraph className="sm:block sm:h-auto flex flex-col justify-center short:flex short:justify-center short:h-full h-full outline-none" />
         <Keyboard className="md:w-[920px] sm:w-[800px] sm:flex short:hidden hidden aspect-[2.86559541604] bg-keyboard dark:bg-keyboard-dark self-center justify-center items-center p-2 rounded-md" />
       </div>
-    </div>
+      
+    </div>)
   );
 }
 

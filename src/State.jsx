@@ -6,7 +6,7 @@ const Finish = [{ key: "\u00A0", code: "Finish", state: "paragraph" }];
 
 const generatePragraph = async () => {
   const res = await axios.get(
-    "http://api.quotable.io/random?minLength=150&maxLength=200"
+    "http://api.quotable.io/random?minLength=200&maxLength=250"
   );
   return res.data.content;
 };
@@ -59,6 +59,7 @@ export const useKeys = create((set) => {
     progressPercentage: 0,
     goal: 1500,
     progress: 0,
+    openedConfig: false,
     size: [window.innerWidth, window.innerHeight],
     focused: false,
 
@@ -92,6 +93,10 @@ export const useKeys = create((set) => {
       set((state) => {
         state.focused = false;
         state.size = [window.innerWidth, window.innerHeight];
+      }),
+    toggleConfig: () =>
+      set((state) => {
+        state.openedConfig = !state.openedConfig;
       }),
 
     updateBrief: () =>
