@@ -6,7 +6,6 @@ import Paragraph from "./components/Paragraph";
 import Config from "./components/Config";
 import { useKeys } from "./State";
 import { useLayoutEffect } from "react";
-import { useEffect } from "react";
 
 function App() {
   const { openedConfig, theme, keyboard } = useKeys();

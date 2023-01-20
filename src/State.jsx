@@ -1,22 +1,43 @@
 import create from "zustand";
 import axios from "axios";
+import randomWords from "random-words";
 
 const Space = [{ key: "\u00A0", state: "paragraph" }];
 const Finish = [{ key: "\u00A0", code: "Finish", state: "paragraph" }];
 
 const generateParagraph = async (parm = "Medium") => {
-  let length = parm;
-  let range = [200, 250];
-  
-  if (length === "Short") {
-    range = [100, 150];
-  } else if (length === "Long") {
-    range = [250, 300];
+  let length = localStorage.paragraphLength || parm;
+  let type = localStorage.paragraphType || "Quote";
+  if (type === "Quote") {
+    let range = [200, 250];
+
+    if (length === "Short") {
+      range = [100, 150];
+    } else if (length === "Long") {
+      range = [250, 300];
+    }
+    const res = await axios.get(
+      `http://api.quotable.io/random?minLength=${range[0]}&maxLength=${range[1]}`
+    );
+    return res.data.content;
+  } else {
+    let range = [30, 8];
+    if (length === "Short") {
+      range = [20, 6];
+    } else if (length === "Long") {
+      range = [40, 10];
+    }
+    return randomWords({
+      exactly: 1,
+      wordsPerString: range[0],
+      maxLength: range[1],
+      formatter: (word, index) => {
+        return index === 0
+          ? word.slice(0, 1).toUpperCase().concat(word.slice(1))
+          : word;
+      },
+    })[0];
   }
-  const res = await axios.get(
-    `http://api.quotable.io/random?minLength=${range[0]}&maxLength=${range[1]}`
-  );
-  return res.data.content;
 };
 
 const generateKeys = (paragraph) => {
@@ -91,6 +112,7 @@ export const useKeys = create((set) => {
       set((state) => {
         localStorage.setItem("goal", goal);
         state.goal = goal;
+        state.progressPercentage = state.progress / state.goal;
       });
     },
     setParagraphLength(length) {
@@ -116,6 +138,18 @@ export const useKeys = create((set) => {
       set((state) => {
         localStorage.setItem("paragraphType", type);
         state.paragraphtype = type;
+        (async () => {
+          const p = await generateParagraph();
+          cacheLetters = generateKeys(p);
+          const pre = await generateParagraph();
+          preText = generateKeys(pre);
+        })();
+        setTimeout(() => {
+          set((state) => {
+            state.letters = cacheLetters;
+            state.index = [0, 0];
+          });
+        }, 500);
       });
     },
     setDailyGoal(goal) {
