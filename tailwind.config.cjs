@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
@@ -92,6 +93,10 @@ module.exports = {
       breathe: {
         "0%": { opacity: 1 },
         "50%": { opacity: 0 },
+        "100%": { opacity: 1 },
+      },
+      appear: {
+        "0%": { opacity: 0 },
         "100%": { opacity: 1 },
       },
     },

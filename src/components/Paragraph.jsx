@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useKeys } from "../State";
 
 export default function Paragraph({ ...props }) {
@@ -49,6 +48,7 @@ export default function Paragraph({ ...props }) {
   };
   const myParagraph = useRef();
 
+
   useEffect(() => {
     if (index[0] === 0 && index[1] === 0) {
       startSession();
@@ -70,16 +70,16 @@ export default function Paragraph({ ...props }) {
       myParagraph.current.focus();
     }
   }, []);
-
-
+  
 
   return (
-    <div 
+    <div
       ref={myParagraph}
       onKeyDown={(e) => {
         e.preventDefault();
         if (e.key === "Escape") {
           e.target.blur();
+          
         } else if (e.key === "Tab") {
           setIndex([0, 0]);
           startSession();
@@ -131,11 +131,11 @@ export default function Paragraph({ ...props }) {
     >
       <div
         className={`relative min-h-[200px] transition-[filter] tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
-          focused ?"cursor-none" :"blur-[2px]"
+          focused ? "cursor-none" : "blur-[2px]"
         }`}
       >
         <div>
-          {letters.map((e, i) => {
+          {[...letters].map((e, i) => {
             return (
               <div className="inline-block" key={i}>
                 {e.map((e, j) => {

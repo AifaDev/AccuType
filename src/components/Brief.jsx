@@ -82,7 +82,7 @@ const Record = ({ speed, accuracy, streak, best }) => (
         </div>
       </span>
     </span>
-    <ConfigButton className="absolute xm:right-4 xm:top-auto top-4 right-4 md:scale-[1.55] scale-[1.45] fill-config_button dark:fill-config_button-dark" />
+    <ConfigButton className="absolute cursor-pointer xm:right-4 xm:top-auto top-4 right-4 md:scale-[1.55] scale-[1.45] fill-config_button dark:fill-config_button-dark" />
   </div>
 );
 

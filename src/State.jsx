@@ -4,9 +4,17 @@ import axios from "axios";
 const Space = [{ key: "\u00A0", state: "paragraph" }];
 const Finish = [{ key: "\u00A0", code: "Finish", state: "paragraph" }];
 
-const generatePragraph = async () => {
+const generateParagraph = async (parm = "Medium") => {
+  let length = parm;
+  let range = [200, 250];
+  
+  if (length === "Short") {
+    range = [100, 150];
+  } else if (length === "Long") {
+    range = [250, 300];
+  }
   const res = await axios.get(
-    "http://api.quotable.io/random?minLength=200&maxLength=250"
+    `http://api.quotable.io/random?minLength=${range[0]}&maxLength=${range[1]}`
   );
   return res.data.content;
 };
@@ -30,21 +38,28 @@ const generateKeys = (paragraph) => {
 };
 
 export const useKeys = create((set) => {
-  let letters = [];
+  let cacheLetters = [];
   let preText = [];
   (async () => {
-    const p = await generatePragraph();
-    letters = generateKeys(p);
+    const p = await generateParagraph(localStorage.paragraphLength);
+    cacheLetters = generateKeys(p);
 
     set((state) => {
-      state.letters = letters;
+      state.letters = cacheLetters;
       state.focused = true;
       state.index = [0, 0];
     });
-    const pre = await generatePragraph();
+    const pre = await generateParagraph(localStorage.paragraphLength);
     preText = generateKeys(pre);
   })();
   return {
+    //Not camel case because it's used in the option component
+    theme: localStorage.theme || "System",
+    paragraphlength: localStorage.paragraphLength || "Medium",
+    paragraphtype: localStorage.paragraphType || "Quote",
+    goal: localStorage.goal || "1500",
+    keyboard: localStorage.keyboard || "Show",
+
     keys: {},
     letters: [],
     index: [0, 0],
@@ -57,17 +72,69 @@ export const useKeys = create((set) => {
     streak: 0,
     best: 0,
     progressPercentage: 0,
-    goal: 1500,
     progress: 0,
     openedConfig: false,
     size: [window.innerWidth, window.innerHeight],
     focused: false,
 
+    setTheme(theme) {
+      set((state) => {
+        if (theme !== "System") {
+          localStorage.setItem("theme", theme);
+        } else {
+          localStorage.removeItem("theme");
+        }
+        state.theme = theme;
+      });
+    },
+    setGoal(goal) {
+      set((state) => {
+        localStorage.setItem("goal", goal);
+        state.goal = goal;
+      });
+    },
+    setParagraphLength(length) {
+      set((state) => {
+        localStorage.setItem("paragraphLength", length);
+        state.paragraphlength = length;
+
+        (async () => {
+          const p = await generateParagraph(length);
+          cacheLetters = generateKeys(p);
+          const pre = await generateParagraph(length);
+          preText = generateKeys(pre);
+        })();
+        setTimeout(() => {
+          set((state) => {
+            state.letters = cacheLetters;
+            state.index = [0, 0];
+          });
+        }, 500);
+      });
+    },
+    setParagraphType(type) {
+      set((state) => {
+        localStorage.setItem("paragraphType", type);
+        state.paragraphtype = type;
+      });
+    },
+    setDailyGoal(goal) {
+      set((state) => {
+        localStorage.setItem("dailyGoal", goal);
+        state.dailygoal = goal;
+      });
+    },
+    setKeyboard(keyboard) {
+      set((state) => {
+        localStorage.setItem("keyboard", keyboard);
+        state.keyboard = keyboard;
+      });
+    },
+
     generateKeys: (paragraph) =>
       set((state) => {
         state.letters = generateKeys(paragraph);
       }),
-
     addKey: (key) =>
       set((state) => {
         state.keys[key] = key;
@@ -98,6 +165,14 @@ export const useKeys = create((set) => {
       set((state) => {
         state.openedConfig = !state.openedConfig;
       }),
+    reset: () =>
+      set((state) => {
+        localStorage.removeItem("theme");
+        localStorage.removeItem("paragraphLength");
+        localStorage.removeItem("paragraphType");
+        localStorage.removeItem("goal");
+        localStorage.removeItem("keyboard");
+      }),
 
     updateBrief: () =>
       set((state) => {
@@ -112,7 +187,7 @@ export const useKeys = create((set) => {
         if (accuracy) state.accuracy = accuracy + "%";
         if (streak) state.streak = streak;
         if (best) state.best = best;
-        if (goal) state.goal = 1500;
+        if (goal) state.goal = goal;
         if (progress) state.progress = progress;
         state.progressPercentage = state.progress / state.goal;
       }),
@@ -123,7 +198,7 @@ export const useKeys = create((set) => {
         state.lastLetter = 0;
         state.lettersCount = 0;
         state.typos = 0;
-        state.letters = structuredClone(letters);
+        state.letters = structuredClone(cacheLetters);
       }),
     startCounter: () =>
       set((state) => {
@@ -173,12 +248,12 @@ export const useKeys = create((set) => {
           state.best = state.streak;
         }
 
-        letters = preText;
+        cacheLetters = preText;
         state.letters = structuredClone(preText);
         state.index = [0, 0];
 
         (async () => {
-          const p = await generatePragraph();
+          const p = await generateParagraph(state.paragraphlength);
           preText = generateKeys(p);
         })();
       }),
