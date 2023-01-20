@@ -85,7 +85,7 @@ export const useKeys = create((set) => {
     keys: {},
     letters: [],
     index: [0, 0],
-    firstLetter: Date.now(),
+    firstLetter: 0,
     lastLetter: 0,
     lettersCount: 0,
     typos: 0,
@@ -98,6 +98,7 @@ export const useKeys = create((set) => {
     openedConfig: false,
     size: [window.innerWidth, window.innerHeight],
     focused: false,
+    letter: null,
     paragraphRef: null,
 
     setParagraphRef: (ref) => set((state) => (state.paragraphRef = ref)),
