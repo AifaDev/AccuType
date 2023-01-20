@@ -85,7 +85,7 @@ export const useKeys = create((set) => {
     keys: {},
     letters: [],
     index: [0, 0],
-    firstLetter: 0,
+    firstLetter: Date.now(),
     lastLetter: 0,
     lettersCount: 0,
     typos: 0,
