@@ -5,9 +5,9 @@ const Option = ({ name, selections }) => {
   const keys = useKeys();
   const selection = keys[name.toLowerCase().replace(" ", "")];
   return (
-    <div className="flex flex-row w-full items-center justify-between py-4 px-8">
-      <div className="text-xl text-[#555555] dark:text-[#CDCDCD]">{name}</div>
-      <div className="w-3/5 gap-7 flex flex-row justify-between">
+    <div className="flex xm:flex-row flex-col xm:gap-0 gap-3 w-full items-center justify-between xm:py-4 py-3.5 px-8">
+      <div className="text-xl text-[#555555] dark:text-[#CDCDCD] xm:text-start xm:w-auto w-screen text-center">{name}</div>
+      <div className="xm:w-3/5 w-screen sm:gap-7 gap-4 flex flex-row justify-between xm:px-0 px-4">
         {selections.map((value, index) => (
             
           <div

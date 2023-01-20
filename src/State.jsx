@@ -97,7 +97,9 @@ export const useKeys = create((set) => {
     openedConfig: false,
     size: [window.innerWidth, window.innerHeight],
     focused: false,
+    paragraphRef: null,
 
+    setParagraphRef: (ref) => set((state) => (state.paragraphRef = ref)),
     setTheme(theme) {
       set((state) => {
         if (theme !== "System") {
@@ -195,19 +197,18 @@ export const useKeys = create((set) => {
         state.focused = false;
         state.size = [window.innerWidth, window.innerHeight];
       }),
-    toggleConfig: () =>
+    toggleConfig: (bool) =>
       set((state) => {
-        state.openedConfig = !state.openedConfig;
-      }),
-    reset: () =>
-      set((state) => {
-        localStorage.removeItem("theme");
-        localStorage.removeItem("paragraphLength");
-        localStorage.removeItem("paragraphType");
-        localStorage.removeItem("goal");
-        localStorage.removeItem("keyboard");
+          state.openedConfig = bool;
       }),
 
+    reset: () => {
+      localStorage.removeItem("theme");
+      localStorage.removeItem("paragraphLength");
+      localStorage.removeItem("paragraphType");
+      localStorage.removeItem("goal");
+      localStorage.removeItem("keyboard");
+    },
     updateBrief: () =>
       set((state) => {
         const speed = localStorage.getItem("speed");

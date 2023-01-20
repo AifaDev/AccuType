@@ -28,6 +28,8 @@ export default function Paragraph({ ...props }) {
     updateSize,
     index,
     setIndex,
+    toggleConfig,
+    setParagraphRef,
   } = useKeys();
   
   const firstUpdate = useRef(true);
@@ -68,6 +70,7 @@ export default function Paragraph({ ...props }) {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       myParagraph.current.focus();
+      setParagraphRef(myParagraph);
     }
   }, []);
   
@@ -79,7 +82,7 @@ export default function Paragraph({ ...props }) {
         e.preventDefault();
         if (e.key === "Escape") {
           e.target.blur();
-          
+          toggleConfig(true);
         } else if (e.key === "Tab") {
           setIndex([0, 0]);
           startSession();

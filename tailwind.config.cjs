@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: 'class',
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {},
@@ -104,7 +104,8 @@ module.exports = {
       xm: "600px",
       sm: "985px",
       md: "1390px",
-      short: { raw: "(max-height: 640px ) and (min-width: 985px)" },
+      short: { raw: "(max-height: 640px )" },
+      //raw: "(max-height: 640px ) and (min-width: 985px)"
     },
   },
   plugins: [],
