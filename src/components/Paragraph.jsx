@@ -53,7 +53,7 @@ export default function Paragraph({ ...props }) {
 
   useEffect(() => {
     if (index[0] === 0 && index[1] === 0) {
-      // startSession();
+      startSession();
     }
     if (index[0] === 0 && index[1] === 1) {
       startCounter();
@@ -128,7 +128,7 @@ export default function Paragraph({ ...props }) {
         document.title = "Best App";
         setFocus(false);
         setIndex([0, 0]);
-        // startSession();
+        startSession();
       }}
     >
       <div

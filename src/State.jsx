@@ -232,7 +232,7 @@ export const useKeys = create((set) => {
 
     startSession: () =>
       set((state) => {
-        state.firstLetter = 0;
+        // state.firstLetter = 0;
         state.lastLetter = 0;
         state.lettersCount = 0;
         state.typos = 0;
@@ -240,7 +240,7 @@ export const useKeys = create((set) => {
       }),
     startCounter: () =>
       set((state) => {
-        state.firstLetter = Date.now();
+        // state.firstLetter = Date.now();
       }),
     countLetter: () =>
       set((state) => {
@@ -253,7 +253,7 @@ export const useKeys = create((set) => {
     endSession: () =>
       set((state) => {
         state.lastLetter = Date.now();
-        const minutes = (state.lastLetter - state.firstLetter) / 60000;
+        // const minutes = (state.lastLetter - state.firstLetter) / 60000;
         const words = state.lettersCount / 5;
         const speed = ~~(words / minutes);
         state.speed = speed + "wpm";
