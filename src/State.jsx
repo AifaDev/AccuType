@@ -7,7 +7,7 @@ const Finish = [{ key: "\u00A0", code: "Finish", state: "paragraph" }];
 
 const generateParagraph = async (parm = "Medium") => {
   let length = localStorage.paragraphLength || parm;
-  let type = localStorage.paragraphType || "Quote";
+  let type = localStorage.paragraphType || "Words";
   if (type === "Quote") {
     let range = [200, 250];
 
@@ -232,15 +232,15 @@ export const useKeys = create((set) => {
 
     startSession: () =>
       set((state) => {
-        // state.firstLetter = 0;
-        // state.lastLetter = 0;
-        // state.lettersCount = 0;
-        // state.typos = 0;
-        // state.letters = structuredClone(cacheLetters);
+        state.firstLetter = 0;
+        state.lastLetter = 0;
+        state.lettersCount = 0;
+        state.typos = 0;
+        state.letters = structuredClone(cacheLetters);
       }),
     startCounter: () =>
       set((state) => {
-        // state.firstLetter = Date.now();
+        state.firstLetter = Date.now();
       }),
     countLetter: () =>
       set((state) => {
@@ -252,8 +252,8 @@ export const useKeys = create((set) => {
       }),
     endSession: () =>
       set((state) => {
-        // state.lastLetter = Date.now();
-        // const minutes = (state.lastLetter - state.firstLetter) / 60000;
+        state.lastLetter = Date.now();
+        const minutes = (state.lastLetter - state.firstLetter) / 60000;
         const words = state.lettersCount / 5;
         const speed = ~~(words / minutes);
         state.speed = speed + "wpm";
