@@ -8,7 +8,7 @@ import { useKeys } from "./State";
 import { useLayoutEffect } from "react";
 
 function App() {
-  const {  theme, keyboard } = useKeys();
+  const { openedConfig, theme, keyboard } = useKeys();
 
   useLayoutEffect(() => {
     if (
@@ -24,9 +24,8 @@ function App() {
 
   return (
     <>
-    
       <div className="outline-none font-roboto App h-screen w-screen inset-0 select-none bg-background dark:bg-background-dark transition-colors duration-300">
-        {/* {openedConfig && <Config />} */}
+        {openedConfig && <Config />}
         <Caret />
         <div className="absolute md:top-[3%] md:left-[7%] sm:top-[4%] sm:left-[3.5%] xm:top-[1%] xm:left-[1.5%]">
           {/* <Menu className="transform md:scale-[-1.2] xm:scale-[-1] scale-[-0.8] fill-menu_button dark:fill-menu_button-dark" /> */}

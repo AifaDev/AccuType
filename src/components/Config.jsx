@@ -23,13 +23,18 @@ const Reset = () => {
 export default function Config() {
   const {
     toggleConfig,
+    openedConfig,
     setIndex,
     startSession,
     setFocus,
     paragraphRef,
   } = useKeys();
   const ref = useRef();
-  
+  useEffect(() => {
+    if (openedConfig) {
+      ref.current.focus();
+    }
+  }, [openedConfig]);
 
   return (
     <>
