@@ -17,8 +17,7 @@ const generateParagraph = async (parm = "Medium") => {
       range = [250, 300];
     }
     const url = `https://api.quotable.io/random?minLength=${range[0]}&maxLength=${range[1]}`;
-   console.log(url)
-   console.log('why')
+
     const res = await axios.get(url);
 
     return res.data.content;

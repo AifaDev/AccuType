@@ -137,7 +137,7 @@ export default function Paragraph({ ...props }) {
         ${focused ? "cursor-none" : "blur-[2px]"}`}
       >
         <div>
-          {[...letters].map((e, i) => {
+          {letters?.map((e, i) => {
             return (
               <div className="inline-block" key={i}>
                 {e.map((e, j) => {
