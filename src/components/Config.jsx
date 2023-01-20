@@ -46,8 +46,8 @@ export default function Config() {
             e.preventDefault();
             if (e.key === "Escape") {
               toggleConfig(false);
-              setIndex([0, 0]);
               paragraphRef.current.focus();
+              setIndex([0, 0]);
               setFocus(true);
               startSession();
             }

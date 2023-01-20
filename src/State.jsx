@@ -164,6 +164,8 @@ export const useKeys = create((set) => {
       set((state) => {
         localStorage.setItem("keyboard", keyboard);
         state.keyboard = keyboard;
+        state.letter = null;
+
       });
     },
 

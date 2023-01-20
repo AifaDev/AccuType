@@ -30,8 +30,9 @@ export default function Paragraph({ ...props }) {
     setIndex,
     toggleConfig,
     setParagraphRef,
+    keyboard,
   } = useKeys();
-  
+
   const firstUpdate = useRef(true);
   const modifiers = {
     Tab: true,
@@ -49,7 +50,6 @@ export default function Paragraph({ ...props }) {
     MetaRight: true,
   };
   const myParagraph = useRef();
-
 
   useEffect(() => {
     if (index[0] === 0 && index[1] === 0) {
@@ -73,7 +73,6 @@ export default function Paragraph({ ...props }) {
       setParagraphRef(myParagraph);
     }
   }, []);
-  
 
   return (
     <div
@@ -133,9 +132,9 @@ export default function Paragraph({ ...props }) {
       }}
     >
       <div
-        className={`relative min-h-[200px] transition-[filter] tracking-wider md:text-4xl xm:text-3xl text-2xl md:px-[5%] leading-normal  outline-none ${
-          focused ? "cursor-none" : "blur-[2px]"
-        }`}
+        className={`relative min-h-[200px] transition-[filter] tracking-wider md:px-[5%] leading-normal  outline-none 
+        ${keyboard === "Show" ? "md:text-4xl xm:text-3xl text-2xl " : "md:text-5xl xm:text-4xl text-3xl"}
+        ${focused ? "cursor-none" : "blur-[2px]"}`}
       >
         <div>
           {[...letters].map((e, i) => {
