@@ -31,6 +31,7 @@ export default function Paragraph({ ...props }) {
     toggleConfig,
     setParagraphRef,
     keyboard,
+    progress
   } = useKeys();
 
   const firstUpdate = useRef(true);
@@ -101,6 +102,9 @@ export default function Paragraph({ ...props }) {
               setIndex([index[0] + 1, 0]);
             } else {
               setIndex([index[0] + 1, 0]);
+              if (progress === 0) {
+                localStorage.setItem("progressedAt", Date.now());
+              }
               endSession();
             }
           } else {
@@ -133,7 +137,11 @@ export default function Paragraph({ ...props }) {
     >
       <div
         className={`relative min-h-[200px] transition-[filter] tracking-wider md:px-[5%] leading-normal  outline-none 
-        ${keyboard === "Show" ? "md:text-4xl xm:text-3xl text-2xl " : "md:text-5xl xm:text-4xl text-3xl"}
+        ${
+          keyboard === "Show"
+            ? "md:text-4xl xm:text-3xl text-2xl "
+            : "md:text-5xl xm:text-4xl text-3xl"
+        }
         ${focused ? "cursor-none" : "blur-[2px]"}`}
       >
         <div>

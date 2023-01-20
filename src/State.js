@@ -7,7 +7,7 @@ const Finish = [{ key: "\u00A0", code: "Finish", state: "paragraph" }];
 
 const generateParagraph = async (parm = "Medium") => {
   let length = localStorage.paragraphLength || parm;
-  let type = localStorage.paragraphType || "Quote";
+  let type = localStorage.paragraphType || "Words";
   if (type === "Quote") {
     let range = [200, 250];
 
@@ -78,7 +78,7 @@ const keys = (set) => {
     //Not camel case because it's used in the option component
     theme: localStorage.theme || "System",
     paragraphlength: localStorage.paragraphLength || "Medium",
-    paragraphtype: localStorage.paragraphType || "Quote",
+    paragraphtype: localStorage.paragraphType || "Words",
     goal: localStorage.goal || "1500",
     keyboard: localStorage.keyboard || "Show",
 

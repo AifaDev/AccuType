@@ -8,8 +8,14 @@ import { useKeys } from "./State";
 import { useLayoutEffect } from "react";
 
 function App() {
-  const { openedConfig, theme, keyboard } = useKeys();
+  const { openedConfig, theme, keyboard, progress } = useKeys();
 
+  useLayoutEffect(() => {
+    if((Date.now() - localStorage.getItem("progressedAt")) > 86400000 || !localStorage.getItem("progressedAt")){
+      localStorage.setItem("progressedAt", Date.now())
+      localStorage.setItem("progress", 0)
+    }
+  }, [progress])
   useLayoutEffect(() => {
     if (
       localStorage.theme === "Dark" ||
