@@ -16,9 +16,10 @@ const generateParagraph = async (parm = "Medium") => {
     } else if (length === "Long") {
       range = [250, 300];
     }
-    const res = await axios.get(
-      `https://api.quotable.io/random?minLength=${range[0]}&maxLength=${range[1]}`
-    );
+    const url = `https://api.quotable.io/random?minLength=${range[0]}&maxLength=${range[1]}`;
+   console.log(url)
+    const res = await axios.get(url);
+
     return res.data.content;
   } else {
     let range = [30, 8];
@@ -165,7 +166,6 @@ export const useKeys = create((set) => {
         localStorage.setItem("keyboard", keyboard);
         state.keyboard = keyboard;
         state.letter = null;
-
       });
     },
 
@@ -201,7 +201,7 @@ export const useKeys = create((set) => {
       }),
     toggleConfig: (bool) =>
       set((state) => {
-          state.openedConfig = bool;
+        state.openedConfig = bool;
       }),
 
     reset: () => {
