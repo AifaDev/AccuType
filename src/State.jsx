@@ -233,7 +233,7 @@ export const useKeys = create((set) => {
     startSession: () =>
       set((state) => {
         // state.firstLetter = 0;
-        state.lastLetter = 0;
+        // state.lastLetter = 0;
         state.lettersCount = 0;
         state.typos = 0;
         state.letters = structuredClone(cacheLetters);
@@ -252,7 +252,7 @@ export const useKeys = create((set) => {
       }),
     endSession: () =>
       set((state) => {
-        state.lastLetter = Date.now();
+        // state.lastLetter = Date.now();
         // const minutes = (state.lastLetter - state.firstLetter) / 60000;
         const words = state.lettersCount / 5;
         const speed = ~~(words / minutes);
