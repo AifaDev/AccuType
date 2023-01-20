@@ -11,6 +11,7 @@ function App() {
   const { openedConfig, theme, keyboard } = useKeys();
 
   useLayoutEffect(() => {
+    console.log('man')
     if (
       localStorage.theme === "Dark" ||
       (!("theme" in localStorage) &&
