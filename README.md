@@ -1,6 +1,6 @@
 # AccuType
 
-A typing practice Web App.
+A Typing practice Web App.
 
 You need a keyboard to use the app.
 
